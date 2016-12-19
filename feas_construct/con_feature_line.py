@@ -29,20 +29,20 @@ def parse_doc_info(doc_infos):
         topics = "#".join([str(e.get('topic_id', "")) for e in doc_infos[0]['topics']])
         return ",".join([cates, entity, topics])
     else:
-        return ""
+        return ",".join(["","",""])
 
 
 def parse_click(c):
-    display_id, ad_id, clicked = c.get("display_id", ""), c.get("ad_id", ""), c.get("clicked", "")
+    display_id, ad_id, clicked = c.get("display_id", ""), c.get("ad_id", ""), c.get("clicked", 0)
     ad_info = get_ad_info(promoted_content_coll, ad_id)
     if ad_info:
         doc_info_str = parse_doc_info(get_doc_info(doc_info_c, ad_info['document_id']))
         return ",".join(
                 map(str,
                     [display_id, ad_id, ad_info['document_id'], ad_info['campaign_id'], ad_info['advertiser_id'],
-                     ad_info.get('ad_click_rate', 0), doc_info_str]))
+                     ad_info.get('ad_click_rate', 0), doc_info_str, clicked]))
     else:
-        return ",".join(map(str, [display_id, ad_id, "", "", "", "", ""]))
+        return ",".join(map(str, [display_id, ad_id, "", "", "", "", "", 0]))
 
 
 def transform_data(clicks):
@@ -123,5 +123,5 @@ if __name__ == "__main__":
     #     rs = pool.map(parse_click,data)
     #     writer("\n".join(rs) + "\n",cst.out_test_data_for_test)
 
-
-    cst.pipeline(clicks_test.find().limit(100),cst.gen_write_data(),parse_click,cst.out_test_data_for_test,10,10)
+    cst.pipeline(clicks_train.find(), cst.gen_write_data(), parse_click, cst.train_out, 10 ** 6, 10 ** 6)
+    cst.pipeline(clicks_test.find(),cst.gen_write_data(),parse_click,cst.test_out,10 ** 6,10 ** 6)
