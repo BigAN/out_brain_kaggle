@@ -42,7 +42,7 @@ def parse_click(c):
                     [display_id, ad_id, ad_info['document_id'], ad_info['campaign_id'], ad_info['advertiser_id'],
                      ad_info.get('ad_click_rate', 0), doc_info_str, clicked]))
     else:
-        return ",".join(map(str, [display_id, ad_id, "", "", "", "", "", 0]))
+        return ",".join(map(str, [display_id, ad_id, "", "", "", "", "","","", 0]))
 
 
 def transform_data(clicks):
@@ -123,5 +123,5 @@ if __name__ == "__main__":
     #     rs = pool.map(parse_click,data)
     #     writer("\n".join(rs) + "\n",cst.out_test_data_for_test)
 
-    cst.pipeline(clicks_train.find(), cst.gen_write_data(), parse_click, cst.train_out, 10 ** 6, 10 ** 6)
-    cst.pipeline(clicks_test.find(),cst.gen_write_data(),parse_click,cst.test_out,10 ** 6,10 ** 6)
+    cst.pipeline(clicks_train.find().limit(10**6), cst.gen_write_data(), parse_click, cst.train_out, 10 ** 6, 10 ** 6)
+    # cst.pipeline(clicks_test.find(),cst.gen_write_data(),parse_click,cst.test_out,10 ** 6,10 ** 6)

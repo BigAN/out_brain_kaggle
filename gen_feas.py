@@ -8,17 +8,17 @@ import os
 pd.merge
 reg = 10  # trying anokas idea of regularization
 
-train = dd.read_csv(os.path.join(cst.data_root, "clicks_train.csv"))  # display_id,ad_id,clicked
-test = dd.read_csv(os.path.join(cst.data_root, "clicks_test.csv"))  # display_id,ad_id,clicked
+train = dd.read_csv(os.path.join(cst.out_data_root, "clicks_train.csv"))  # display_id,ad_id,clicked
+test = dd.read_csv(os.path.join(cst.out_data_root, "clicks_test.csv"))  # display_id,ad_id,clicked
 
 doc_cate = dd.read_csv(
-        os.path.join(cst.data_root, "documents_categories.csv"))  # document_id,category_id,confidence_level
+        os.path.join(cst.out_data_root, "documents_categories.csv"))  # document_id,category_id,confidence_level
 doc_entity = dd.read_csv(
-        os.path.join(cst.data_root, "documents_entities.csv"))  # document_id,entity_id,confidence_level
-doc_topics = dd.read_csv(os.path.join(cst.data_root, "documents_topics.csv"))  # document_id,topic_id,confidence_level
-events = dd.read_csv(os.path.join(cst.data_root, "events.csv"))  # document_id,topic_id,confidence_level
+        os.path.join(cst.out_data_root, "documents_entities.csv"))  # document_id,entity_id,confidence_level
+doc_topics = dd.read_csv(os.path.join(cst.out_data_root, "documents_topics.csv"))  # document_id,topic_id,confidence_level
+events = dd.read_csv(os.path.join(cst.out_data_root, "events.csv"))  # document_id,topic_id,confidence_level
 promoted_content = dd.read_csv(
-        os.path.join(cst.data_root, "promoted_content.csv"))  # ad_id,document_id,campaign_id,advertiser_id
+        os.path.join(cst.out_data_root, "promoted_content.csv"))  # ad_id,document_id,campaign_id,advertiser_id
 
 train.head()
 
